@@ -12,14 +12,16 @@ class CreateResourceTable extends Migration
      */
     public function up()
     {
-        Schema::create('resource', function ($table) {
-            $table->increments('id');
-            $table->integer('group_id')->unsigned();
-            $table->foreign('group_id')->references('id')->on('resource');
-            $table->string('name', 16)->change();
-            $table->string('description', 255)->change();
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('resource')){
+            Schema::create('resource', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('group_id');
+                $table->foreign('group_id')->references('id')->on('group');
+                $table->string('name', 16);
+                $table->string('description', 255)->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
