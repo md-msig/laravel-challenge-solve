@@ -11,12 +11,10 @@
 |
 */
 
-$factory->defineAs(App\Resource::class, function (Faker\Generator $faker) {
+$factory->define(App\Resource::class, function (Faker\Generator $faker) {
     return [
-        'group_id' => function () {
-            return factory(App\Group::class)->create()->id;
-        },
-        'name' => $faker->name,
-        'description' => $faker->description,
+        'group_id' => \App\Group::all()->random()->id,
+        'name' => str_random(10),
+        'description' => str_random(30),
     ];
 });
