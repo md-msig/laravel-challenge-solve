@@ -12,12 +12,14 @@ class CreateGroupTable extends Migration
      */
     public function up()
     {
-        Schema::create('group', function ($table) {
-            $table->increments('id');
-            $table->string('name', 16)->change();
-            $table->string('description', 255)->change();
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('group')){
+            Schema::create('group', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('name', 16)->unique();
+                $table->string('description', 255)->nullable();
+                $table->timestamps();
+            });
+        }        
     }
 
     /**
