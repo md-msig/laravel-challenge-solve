@@ -28,12 +28,13 @@ Installation
         - vagrant up
     - And run the following command to login to your vagrant box. 
         - vagrant ssh
+
 2.	Run the Project
     - In git bash terminal, input "cd code" and press enter.
     - Clone the git repo. 
         - git clone https://github.com/md-msig/laravel-challenge-solve.git
     - Run the following commands.      
-        - cd Laravel52 
+        - cd laravel-challenge-solve 
         - composer install
         - php artisan migrate
         - php artisan db:seed
