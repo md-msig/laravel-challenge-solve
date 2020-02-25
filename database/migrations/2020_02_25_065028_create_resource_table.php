@@ -15,7 +15,7 @@ class CreateResourceTable extends Migration
         if(!Schema::hasTable('resource')){
             Schema::create('resource', function (Blueprint $table) {
                 $table->increments('id');
-                $table->integer('group_id');
+                $table->unsignedInteger('group_id');
                 $table->foreign('group_id')->references('id')->on('group');
                 $table->string('name', 16);
                 $table->string('description', 255)->nullable();

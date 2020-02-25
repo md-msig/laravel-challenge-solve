@@ -30,5 +30,5 @@ Route::group(['middleware' => ['web']], function () {
     //
 });
 
-Route::resource('groupCRUD','GroupCRUDController');
-Route::resource('resourceCRUD','ResourceCRUDController');
+Route::resource('group','GroupCRUDController');
+Route::resource('resource','ResourceCRUDController');

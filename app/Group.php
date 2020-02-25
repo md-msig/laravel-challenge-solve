@@ -8,6 +8,11 @@ class Group extends Model
 {
     protected $table = 'group';
 
+    protected $fillable = [
+        'name',
+        'description'
+    ];
+
     public function resources()
     {
         return $this->hasMany('resource');

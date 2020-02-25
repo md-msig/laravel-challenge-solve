@@ -8,7 +8,7 @@ use App\Http\Requests;
 
 use App\Resource;
 
-class ResourceCRUDControler extends Controller
+class ResourceCRUDController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,8 @@ class ResourceCRUDControler extends Controller
      */
     public function index()
     {
-        $items = Item::orderBy('id','DESC')->paginate(5);
-        return view('ResourceCRUD.index',compact('items'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $items = Resource::orderBy('id','DESC')->paginate(10);
+        return response()->json($items, 201);
     }
 
     /**
@@ -29,7 +28,7 @@ class ResourceCRUDControler extends Controller
      */
     public function create()
     {
-        return view('ResourceCRUD.create');
+        return "Create Page!";
     }
 
     /**
@@ -41,16 +40,14 @@ class ResourceCRUDControler extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'group_id' => 'required|exists:group,id',
-            'name' => 'required|unique|max:16',
+            'name' => 'required|max:16',
             'description' => 'required|max:255',
+            'group_id' => 'required',
         ]);
 
 
-        Item::create($request->all());
-
-        return redirect()->route('ResourceCRUD.index')
-                        ->with('success','Item created successfully');
+        $item = Resource::create($request->all());
+        return response()->json($item, 201);
     }
 
     /**
@@ -61,8 +58,8 @@ class ResourceCRUDControler extends Controller
      */
     public function show($id)
     {
-        $item = Item::find($id);
-        return view('ResourceCRUD.show',compact('item'));
+        $item = Resource::find($id);
+        return response()->json($item, 201);
     }
 
     /**
@@ -73,8 +70,8 @@ class ResourceCRUDControler extends Controller
      */
     public function edit($id)
     {
-        $item = Item::find($id);
-        return view('ResourceCRUD.edit',compact('item'));
+        $item = Resource::find($id);
+        return response()->json(null, 201);
     }
 
     /**
@@ -87,16 +84,15 @@ class ResourceCRUDControler extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'group_id' => 'required|exists:group,id',
-            'name' => 'required|unique|max:16',
+            'name' => 'required|max:16',
             'description' => 'required|max:255',
+            'group_id' => 'required',
         ]);
 
 
-        Item::find($id)->update($request->all());
+        $item = Resource::find($id)->update($request->all());
 
-        return redirect()->route('ResourceCRUD.index')
-                        ->with('success','Item updated successfully');
+        return response()->json($item, 201);
     }
 
     /**
@@ -107,8 +103,7 @@ class ResourceCRUDControler extends Controller
      */
     public function destroy($id)
     {
-        Item::find($id)->delete();
-        return redirect()->route('ResourceCRUD.index')
-                        ->with('success','Item deleted successfully');
+        Resource::find($id)->delete();
+        return response()->json(null, 204);
     }
 }

@@ -11,10 +11,10 @@
 |
 */
 
-$factory->defineAs(App\Group::class, function (Faker\Generator $faker) {
+$factory->define(App\Group::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'description' => $faker->description,
+        'name' => $this->faker->name(1,16),
+        'description' => $this->faker->sentence(1,255),
     ];
 });
 
