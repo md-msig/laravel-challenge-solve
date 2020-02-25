@@ -29,11 +29,16 @@ Installation
     - And run the following command to login to your vagrant box. 
         - vagrant ssh
 2.	Run the Project
-    - In git bash, input "cd code" and press enter.
+    - In git bash terminal, input "cd code" and press enter.
     - Clone the git repo. 
         - git clone https://github.com/md-msig/laravel-challenge-solve.git
-    - Run the following commands. 
+    - Run the following commands.      
         - cd Laravel52 
+        - composer install
+        - php artisan migrate
+        - php artisan db:seed
         - php artisan serve
-    - And type homestead.test in your browser and press enter.
+    - Run the following command for UnitTest
+        - phpunit
+    - And type homestead.test in your browser and press enter to run the project.
 
