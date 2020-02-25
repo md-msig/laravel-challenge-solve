@@ -29,3 +29,6 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
     //
 });
+
+Route::resource('groupCRUD','GroupCRUDController');
+Route::resource('resourceCRUD','ResourceCRUDController');
