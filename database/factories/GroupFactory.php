@@ -13,8 +13,8 @@
 
 $factory->define(App\Group::class, function (Faker\Generator $faker) {
     return [
-        'name' => str_random(10),
-        'description' => str_random(30),
+        'name' => $this->faker->name(1,16),
+        'description' => $this->faker->sentence(1,255),
     ];
 });
 

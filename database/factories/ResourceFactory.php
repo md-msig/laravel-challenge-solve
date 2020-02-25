@@ -14,7 +14,7 @@
 $factory->define(App\Resource::class, function (Faker\Generator $faker) {
     return [
         'group_id' => \App\Group::all()->random()->id,
-        'name' => str_random(10),
-        'description' => str_random(30),
+        'name' => $this->faker->name(1,16),
+        'description' => $this->faker->sentence(1,255),
     ];
 });

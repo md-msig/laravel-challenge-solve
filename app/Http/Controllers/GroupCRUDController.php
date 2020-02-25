@@ -8,7 +8,7 @@ use App\Http\Requests;
 
 use App\Group;
 
-class GroupCRUDControler extends Controller
+class GroupCRUDController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,8 @@ class GroupCRUDControler extends Controller
      */
     public function index()
     {
-        $items = Group::orderBy('id','DESC')->paginate(5);
-        return view('GroupCRUD.index',compact('items'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $items = Group::orderBy('id','DESC')->paginate(10);
+        return response()->json($items, 201);
     }
 
     /**
@@ -29,7 +28,7 @@ class GroupCRUDControler extends Controller
      */
     public function create()
     {
-        return view('GroupCRUD.create');
+        return "Create Page!";
     }
 
     /**
@@ -41,15 +40,13 @@ class GroupCRUDControler extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|unique|max:16',
+            'name' => 'required|max:16',
             'description' => 'required|max:255',
         ]);
 
 
-        Item::create($request->all());
-
-        return redirect()->route('GroupCRUD.index')
-                        ->with('success','Item created successfully');
+        $item = Group::create($request->all());
+        return response()->json($item, 201);
     }
 
     /**
@@ -60,8 +57,8 @@ class GroupCRUDControler extends Controller
      */
     public function show($id)
     {
-        $item = Item::find($id);
-        return view('GroupCRUD.show',compact('item'));
+        $item = Group::find($id);
+        return response()->json($item, 201);
     }
 
     /**
@@ -72,8 +69,8 @@ class GroupCRUDControler extends Controller
      */
     public function edit($id)
     {
-        $item = Item::find($id);
-        return view('GroupCRUD.edit',compact('item'));
+        $item = Group::find($id);
+        return response()->json(null, 201);
     }
 
     /**
@@ -86,15 +83,14 @@ class GroupCRUDControler extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|unique|max:16',
+            'name' => 'required|max:16',
             'description' => 'required|max:255',
         ]);
 
 
-        Item::find($id)->update($request->all());
+        $item = Group::find($id)->update($request->all());
 
-        return redirect()->route('GroupCRUD.index')
-                        ->with('success','Item updated successfully');
+        return response()->json($item, 201);
     }
 
     /**
@@ -105,8 +101,7 @@ class GroupCRUDControler extends Controller
      */
     public function destroy($id)
     {
-        Item::find($id)->delete();
-        return redirect()->route('GroupCRUD.index')
-                        ->with('success','Item deleted successfully');
+        Group::find($id)->delete();
+        return response()->json(null, 204);
     }
 }
