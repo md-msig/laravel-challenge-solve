@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Resource;
 
 class GroupTableSeeder extends Seeder
 {
@@ -11,8 +12,6 @@ class GroupTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Group::class, 10)->create()->each(function($u) {
-            $u->resources()->save(factory(App\Resource::class)->make());
-        });
+        factory(App\Group::class, 10)->create();
     }
 }
